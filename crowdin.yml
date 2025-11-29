@@ -5,5 +5,5 @@ base_path: .
 preserve_hierarchy: true
 
 files:
-  - source: /locale/en/*.json
-    translation: /locale/%two_letters_code%/%original_file_name%
+  - source: /**
+    translation: /%locale%/%original_file_name%
