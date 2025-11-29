@@ -1,7 +1,7 @@
 name: Download from Crowdin → GitHub
 
 on:
-  workflow_dispatch:   # permite clicar em "Run workflow" manualmente
+  workflow_dispatch:
 
 jobs:
   download:
@@ -14,11 +14,11 @@ jobs:
       - name: Crowdin download only
         uses: crowdin/github-action@v2
         with:
-          upload_sources: false                # NÃO envia nada pro Crowdin
+          upload_sources: false
           upload_translations: false
-          download_translations: true          # BAIXA do Crowdin → GitHub
-          create_pull_request: false           # faz commit direto no repo
-          config: crowdin.yml                  # arquivo de configuração
+          download_translations: true
+          create_pull_request: false
+          config: crowdin.yml
         env:
           CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
           CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}

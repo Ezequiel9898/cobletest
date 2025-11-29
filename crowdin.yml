@@ -1,9 +1,9 @@
-project_id_env: CROWDIN_PROJECT_ID
-api_token_env: CROWDIN_PERSONAL_TOKEN
+project_id_env: 850480
+api_token_env: 96a38dd15968c675ea0d7481e073a27472bbae2320e39e1d1055bf2b85ae472d6a975413f92de68b
 
 base_path: .
 preserve_hierarchy: true
 
 files:
-  - source: "/locales/en/*.json"
-    translation: "/locales/%two_letters_code%/%original_file_name%"
+  - source: "/**/*.json"
+    translation: "/translations/%two_letters_code%/%original_file_name%"
