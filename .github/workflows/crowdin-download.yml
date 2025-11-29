@@ -1,0 +1,37 @@
+name: Download from Crowdin → GitHub
+
+on:
+  workflow_dispatch:   # permite clicar em "Run workflow" manualmente
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Crowdin download only
+        uses: crowdin/github-action@v2
+        with:
+          upload_sources: false                # NÃO envia nada pro Crowdin
+          upload_translations: false
+          download_translations: true          # BAIXA do Crowdin → GitHub
+          create_pull_request: false           # faz commit direto no repo
+          config: crowdin.yml                  # arquivo de configuração
+        env:
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit and push downloaded files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          if git diff --cached --quiet; then
+            echo "Nada novo para commitar."
+          else
+            git commit -m "Baixado do Crowdin"
+            git push
+          fi
